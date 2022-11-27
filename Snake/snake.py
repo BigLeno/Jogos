@@ -20,7 +20,6 @@ while condition != True:
         sg.get_movement_events(event)
         sg.get_screen_events(event)
 
-    sg.on_grid_random()
     points = sg.earn_points()
     sg.grow_snake()
     sg.edge_collision()

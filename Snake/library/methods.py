@@ -10,7 +10,7 @@ class Snake_Game ():
         self.LEFT = 3
         self.points = 0
         self.condition = False
-        self.my_direction = self.LEFT #Starts to the left
+        self.my_direction = 3 #Starts to the left
         self.screen = 0 #Starts in menu screen
 
     def get_test (self):
@@ -40,6 +40,7 @@ class Snake_Game ():
     def get_apple(self):
         """Function that makes the apple"""
         self.apple = pygame.Surface((10,10))
+        self.apple_pos = self.on_grid_random()
         self.apple.fill((255, 0, 0)) #Setting the color of the snake (Red)
         self.scren.blit(self.apple, self.apple_pos)
 
@@ -91,18 +92,19 @@ class Snake_Game ():
                 self.snake[0] = (self.snake[0][0] - 10, self.snake[0][1])
             case _:
                 pass
+        
 
     def get_movement_events (self, event):
         """Function that captures movement events"""
         if event.type == KEYDOWN:
-            if event.key == K_UP and my_direction != self.DOWN:
-                my_direction = self.UP
-            elif event.key == K_DOWN and my_direction != self.UP:
-                my_direction = self.DOWN
-            elif event.key == K_LEFT and my_direction != self.RIGHT:
-                my_direction = self.LEFT
-            elif event.key == K_RIGHT and my_direction != self.LEFT:
-                my_direction = self.RIGHT
+            if event.key == K_UP and self.my_direction != self.DOWN:
+                self.my_direction = self.UP
+            elif event.key == K_DOWN and self.my_direction != self.UP:
+                self.my_direction = self.DOWN
+            elif event.key == K_LEFT and self.my_direction != self.RIGHT:
+                self.my_direction = self.LEFT
+            elif event.key == K_RIGHT and self.my_direction != self.LEFT:
+                self.my_direction = self.RIGHT
             else:
                 pass
 
