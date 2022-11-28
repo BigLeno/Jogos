@@ -33,9 +33,11 @@ class Snake_Game ():
         """Function that makes the snake"""
         self.snake = [(200, 200), (210, 200), (220,200)]
         self.snake_skin = pygame.Surface((10,10))
-        self.snake_skin.fill((255,255,255)) #Setting the color of the snake (White)
+        #self.snake_skin.fill((255,255,255)) #Setting the color of the snake (White)
         for pos in self.snake:
             self.scren.blit(self.snake_skin, pos)
+        
+        return self.snake, self.snake_skin
 
     def get_apple(self):
         """Function that makes the apple"""
