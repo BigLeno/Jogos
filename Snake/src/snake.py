@@ -9,9 +9,13 @@ sg = Snake_Game()
 pygame.init()
 
 clock, screen, font, condition = sg.get_test()
-snake = sg.get_snake()
+snake, snake_skin = sg.get_snake()
 apple = sg.get_apple()
 
+clock = pygame.time.Clock()
+screen = pygame.display.set_mode((600, 600))
+pygame.display.set_caption('Cobrinha')
+font = pygame.font.Font('freesansbold.ttf', 18)
 
 
 while condition != True:
@@ -20,11 +24,20 @@ while condition != True:
         sg.get_movement_events(event)
         sg.get_screen_events(event)
 
+    
+    snake_skin = pygame.Surface((10,10))
+    snake_skin.fill((255,255,255))
     points = sg.earn_points()
     sg.grow_snake()
     sg.edge_collision()
     sg.auto_collision()
-    sg.get_movement()
+
+    """Movement"""
+    for i in range(len(snake) - 1, 0, -1):
+            snake[i] = (snake[i-1][0], snake[i-1][1])
+
+    for pos in snake:
+            screen.blit(snake_skin, pos)
     
     
     screen.fill((0,0,0))
