@@ -26,15 +26,14 @@ class Snake_Game ():
         """Function that randomizes the appearance of the fruit"""
         x = random.randint(0,59)
         y = random.randint(0,59)
-        self.apple_pos = (x * 10, y * 10)
 
-        return self.apple_pos
+        print(f'Posicao X: {x}, Posicao Y: {y}')
+
+        return (x * 10, y * 10)
 
     def get_snake(self):
         """Function that makes the snake"""
-        self.snake = [(200, 200), (210, 200), (220,200)]
-        #self.snake_skin = pygame.Surface((10,10))
-        #self.snake_skin.fill((255,255,255)) #Setting the color of the snake (White)         
+        self.snake = [(200, 200), (210, 200), (220,200)] 
         return self.snake
     
     def get_snake_skin(self):
@@ -46,29 +45,30 @@ class Snake_Game ():
 
         return self.snake_skin
 
-
     def get_apple(self):
         """Function that makes the apple"""
         self.apple = pygame.Surface((10,10))
-        self.apple_pos = self.on_grid_random()
-        self.apple.fill((255, 0, 0)) #Setting the color of the snake (Red)
-        self.screen.blit(self.apple, self.apple_pos)
+        self.apple.fill((255, 0, 0)) #Setting the color of the apple
+        self.screen.blit(self.apple, self.on_grid_random())
+
+        return self.apple
 
     def collision (self, c1, c2):
         """Function that establishes the collision"""
-        self.collision_condition = (c1[0] == c2[0]) and (c1[1] == c2[1])
-        return self.collision_condition
+        return (c1[0] == c2[0]) and (c1[1] == c2[1])
 
     def earn_points (self):
         """Function that makes the snake earn points""" 
-        if self.collision(self.snake, self.apple_pos) == True:
+        if self.collision(self.snake, self.on_grid_random()) == True:
             self.points += 1
+
+            self.get_apple_position()
 
         return self.points
 
     def grow_snake (self):
         """Function that makes the snakes grow"""
-        if self.collision(self.snake[0], self.apple_pos) == True:
+        if self.collision(self.snake[0], self.on_grid_random()) == True:
             self.snake.append((0,0))
 
     def edge_collision (self):
