@@ -16,35 +16,43 @@ class Snake_Game ():
     def get_test (self):
         """Apenas para testar"""
         self.clock = pygame.time.Clock()
-        self.scren = pygame.display.set_mode((600, 600))
+        self.screen = pygame.display.set_mode((600, 600))
         pygame.display.set_caption('Cobrinha')
         self.font = pygame.font.Font('freesansbold.ttf', 18)
 
-        return self.clock, self.scren, self.font, self.condition
+        return self.clock, self.screen, self.font, self.condition
 
     def on_grid_random (self):
         """Function that randomizes the appearance of the fruit"""
         x = random.randint(0,59)
         y = random.randint(0,59)
         self.apple_pos = (x * 10, y * 10)
+
         return self.apple_pos
 
     def get_snake(self):
         """Function that makes the snake"""
         self.snake = [(200, 200), (210, 200), (220,200)]
-        self.snake_skin = pygame.Surface((10,10))
-        #self.snake_skin.fill((255,255,255)) #Setting the color of the snake (White)
+        #self.snake_skin = pygame.Surface((10,10))
+        #self.snake_skin.fill((255,255,255)) #Setting the color of the snake (White)         
+        return self.snake
+    
+    def get_snake_skin(self):
+        self.snake_skin = pygame.Surface((10, 10))
+        self.snake_skin.fill((255,255,255))
+
         for pos in self.snake:
-            self.scren.blit(self.snake_skin, pos)
-        
-        return self.snake, self.snake_skin
+            self.screen.blit(self.snake_skin, pos)
+
+        return self.snake_skin
+
 
     def get_apple(self):
         """Function that makes the apple"""
         self.apple = pygame.Surface((10,10))
         self.apple_pos = self.on_grid_random()
         self.apple.fill((255, 0, 0)) #Setting the color of the snake (Red)
-        self.scren.blit(self.apple, self.apple_pos)
+        self.screen.blit(self.apple, self.apple_pos)
 
     def collision (self, c1, c2):
         """Function that establishes the collision"""

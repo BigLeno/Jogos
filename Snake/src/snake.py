@@ -9,7 +9,8 @@ sg = Snake_Game()
 pygame.init()
 
 clock, screen, font, condition = sg.get_test()
-snake, snake_skin = sg.get_snake()
+snake = sg.get_snake()
+snake_skin = sg.get_snake_skin()
 apple = sg.get_apple()
 
 clock = pygame.time.Clock()
@@ -20,28 +21,24 @@ font = pygame.font.Font('freesansbold.ttf', 18)
 
 while condition != True:
     clock.tick(10)
+
     for event in pygame.event.get():
         sg.get_movement_events(event)
         sg.get_screen_events(event)
-
     
-    snake_skin = pygame.Surface((10,10))
-    snake_skin.fill((255,255,255))
+    """Movement"""
+    for i in range(len(snake) - 1, 0, -1):
+        snake[i] = (snake[i-1][0], snake[i-1][1]) 
+
     points = sg.earn_points()
+
     sg.grow_snake()
+
     sg.edge_collision()
     sg.auto_collision()
 
-    """Movement"""
-    for i in range(len(snake) - 1, 0, -1):
-            snake[i] = (snake[i-1][0], snake[i-1][1])
-
-    for pos in snake:
-            screen.blit(snake_skin, pos)
-    
-    
     screen.fill((0,0,0))
-    
+
     for x in range(0, 600, 10): ## faz as linhas laterais
         pygame.draw.line(screen, (40, 40, 40), (x, 0), (x, 600))
     for y in range(0, 600, 10): # faz as linhas verticais
@@ -51,6 +48,13 @@ while condition != True:
     pontos_rect = pontos_font.get_rect()
     pontos_rect.topleft = (600 - 120, 10)
     screen.blit(pontos_font, pontos_rect)
+
+    """Movement"""
+    for i in range(len(snake) - 1, 0, -1):
+        snake[i] = (snake[i-1][0], snake[i-1][1]) 
+
+    for pos in snake:
+        screen.blit(snake_skin, pos)
 
     pygame.display.update()
 
